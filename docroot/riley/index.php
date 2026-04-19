@@ -12,9 +12,11 @@ $table = 'riley';
 //Value: header in html table
 $fields = [
   "datetime" => "Date/Time",
-  "insulin" => "Insulin",
-  "gabapentin" => "Gabapentin",
-  "allergy" => "Allergy",
+  "bglevel" => "BG mmol/L",
+  "insulin" => "Insulin u",
+  "gabapentin" => "Gabapentin mg",
+  "allergy" => "Allergy mg",
+  "inhaler" => "Inhaler sec",
   "note" => "Note"
 ];
 
@@ -83,7 +85,7 @@ include $docroot.'resources/template-header.php';
   <table class="log">
     <thead>
       <tr>
-        <?php foreach($fields as $k=>$v) echo "<th>".htmlentities($v)."</th>"; ?>
+        <?php foreach($fields as $k=>$v) echo "<th>".str_replace(" ","&nbsp;",htmlentities($v))."</th>"; ?>
       </tr>
     </thead>
     <tbody>
