@@ -25,7 +25,7 @@ trait LogTableMethods {
     $query = "SELECT *
               FROM `$table`"
             .($conditions ? ' WHERE '.implode(' AND ', $conditions) : '')
-            .' ORDER BY `datetime` DESC';
+            .' ORDER BY `datetime`, `id`';
 
     if ($values) {
       $stmt = $this->prepareStmt($query, 'browse '.$table);
