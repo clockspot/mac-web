@@ -11,5 +11,3 @@ define('DBHOST', 'localhost');
 define('DBUSER', 'youruser');
 define('DBPASS', 'yourpass');
 define('DBBASE', 'yourdb');
-
-define('RILEY_TABLE', 'riley');

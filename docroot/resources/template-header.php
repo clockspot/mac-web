@@ -13,12 +13,8 @@
 <body>
 <div id="wrap">
   <div id="header">
-    <h1><?php echo htmlspecialchars(SITE_TITLE); ?></h1>
-    <?php if (!empty($_SERVER['PHP_AUTH_USER'])): ?>
-      <span id="authuser"><?php echo htmlspecialchars($_SERVER['PHP_AUTH_USER']); ?></span>
-    <?php endif; ?>
     <div id="nav">
-      <a href="<?php echo $docroot; ?>"<?php echo (!isset($thispage)||$thispage==='' ? ' class="current"' : ''); ?>>Home</a>
+      <a href="<?php echo $docroot; ?>"<?php echo (!isset($thispage)||$thispage==='' ? ' class="current"' : ''); ?>><?php echo htmlspecialchars(SITE_TITLE); ?></a>
       <a href="<?php echo $docroot; ?>riley/"<?php echo (isset($thispage)&&$thispage==='Riley' ? ' class="current"' : ''); ?>>Riley</a>
     </div>
   </div><!-- end header -->
