@@ -1,0 +1,11 @@
+# Copy this file to .htaccess and update AuthUserFile to the absolute path
+# of your .htpasswd file (must be outside the docroot for security).
+#
+# To create/add a user:
+#   htpasswd -c /path/to/.htpasswd username    (creates new file)
+#   htpasswd /path/to/.htpasswd username       (adds to existing file)
+
+AuthType Basic
+AuthName "mac-web"
+AuthUserFile /absolute/path/to/.htpasswd
+Require valid-user
