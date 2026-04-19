@@ -1,4 +1,4 @@
-/* font sizes described in pt rather than px/em/etc for vintage Mac use */
+/* font sizes described in pt rather than px/em/etc for vintage Mac use at 72dpi */
 
 body {
   font-family: 'New York', 'Times New Roman', Times, serif;
@@ -9,11 +9,12 @@ body {
 
 small { font-size: 10pt; font-family: Geneva, Helvetica, Arial, sans-serif; }
 
-h1 { font-size: 36pt; font-weight: normal; }
-h2 { font-size: 24pt; font-weight: normal; }
-h3 { font-size: 18pt; font-weight: normal; }
-h4 { font-size: 16pt; font-weight: normal; }
-h5 { font-size: 14pt; font-weight: normal; }
+h1, h2, h3, h4, h5 { font-family: 'New York', 'Times New Roman', Times, serif; font-weight: normal; }
+h1 { font-size: 36pt; }
+h2 { font-size: 24pt; }
+h3 { font-size: 18pt; }
+h4 { font-size: 16pt; }
+h5 { font-size: 14pt; }
 
 a { color: #00c; }
 a:visited { color: #609; }
@@ -22,7 +23,7 @@ a:hover { color: #00f; }
 #wrap { max-width: 900px; }
 
 #header {
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #999;
   padding-bottom: 6px;
   margin-bottom: 12px;
 }
@@ -38,10 +39,9 @@ a:hover { color: #00f; }
 #content { margin-bottom: 20px; }
 
 #footer {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #999;
   margin-top: 16px;
   padding-top: 4px;
-  font-size: 11px;
   color: #999;
 }
 
@@ -84,7 +84,7 @@ table.log {
 
 table.log th,
 table.log td {
-  border: 1px solid #aaa;
+  border: 1px solid #999;
   padding: 3px 8px;
   text-align: left;
   vertical-align: top;
@@ -94,4 +94,4 @@ table.log th {
   font-weight: bold;
 }
 
-hr { margin: 18px 0; border: none; border-top: 1px solid #ccc; }
+hr { margin: 18px 0; border: none; border-top: 1px solid #999; }

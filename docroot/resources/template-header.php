@@ -14,7 +14,7 @@
 <div id="wrap">
   <div id="header">
     <div id="nav">
-      <a href="<?php echo $docroot; ?>"<?php echo (!isset($thispage)||$thispage==='' ? ' class="current"' : ''); ?>><?php echo htmlspecialchars(SITE_TITLE); ?></a>
+      <a href="<?php echo $docroot; ?>"<?php echo (!isset($thispage)||$thispage==='' ? ' class="current"' : ''); ?>><?php echo htmlspecialchars(SITE_TITLE); ?></a> &nbsp;
       <a href="<?php echo $docroot; ?>riley/"<?php echo (isset($thispage)&&$thispage==='Riley' ? ' class="current"' : ''); ?>>Riley</a>
     </div>
   </div><!-- end header -->

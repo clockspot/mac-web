@@ -12,7 +12,7 @@
           if (strpos($headRaw, 'ref: refs/heads/') === 0)
             $branch = substr($headRaw, strlen('ref: refs/heads/'));
         }
-        echo '<span'.($branch ? ' title="'.htmlspecialchars($branch).'"' : '').'>'.htmlspecialchars($version).'</span>';
+        echo '<small'.($branch ? ' title="'.htmlspecialchars($branch).'"' : '').'>'.htmlspecialchars($version).'</small>';
       }
     } catch (Exception $e) {
       if (isset($showErrors) && $showErrors) echo htmlspecialchars($e->getMessage());
