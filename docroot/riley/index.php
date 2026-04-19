@@ -6,7 +6,7 @@ $projroot  = '../../';
 require $projroot.'settings.php';
 require $projroot.'App.class.php';
 
-$table = 'Riley';
+$table = 'riley';
 
 //Key: column from SQL table to display and (except for datetime) submit back
 //Value: header in html table
@@ -59,7 +59,7 @@ include $docroot.'resources/template-header.php';
 
 <?php if ($errors): ?>
 <ul class="errors">
-  <?php foreach ($browseErrors as $err): ?>
+  <?php foreach ($errors as $err): ?>
     <li><?php echo htmlspecialchars($err); ?></li>
   <?php endforeach; ?>
 </ul>
@@ -72,7 +72,8 @@ include $docroot.'resources/template-header.php';
     &nbsp;To: <input type="text" name="to" value="<?php echo htmlspecialchars($browseTo); ?>" size="10" />
     &nbsp;<input type="submit" value="Browse" />
   </p>
-  <p><small><?php echo count($browseRows); ?> entr<?php echo count($browseRows) === 1 ? 'y' : 'ies'; ?> found.</small></p>
+  <?php $cnt = is_array($browseRows) ? count($browseRows) : 0; ?>
+  <p><small><?php echo $cnt; ?> entr<?php echo $cnt === 1 ? 'y' : 'ies'; ?> found.</small></p>
 </form>
 
 <form method="post" action="">
@@ -87,7 +88,7 @@ include $docroot.'resources/template-header.php';
     </thead>
     <tbody>
       <?php
-        if ($browseRows !== null && is_array($browseRows) && count($browseRows) === 0) {
+        if ($browseRows !== null && is_array($browseRows) && count($browseRows) > 0) {
           foreach ($browseRows as $i => $row) {
             echo "<tr>";
             foreach($fields as $k=>$v) echo "<td>".($row[$k]!==null? htmlspecialchars($row[$k]): '')."</td>";
@@ -95,7 +96,7 @@ include $docroot.'resources/template-header.php';
           }
         }
         echo "<tr>";
-        foreach($fields as $k=>$v) echo "<td>".($k=='datetime'? '<input type="submit" value="Add" />': ($_POST[$k]!==null? '<input type="text" name="insulin" value="'.htmlspecialchars($_POST[$k]).'" size="10" />': ''))."</td>";
+        foreach($fields as $k=>$v) echo "<td>".($k=='datetime'? '<input type="submit" value="Add" />': '<input type="text" name="'.htmlspecialchars($k).'" value="'.htmlspecialchars($_POST[$k] ?? '').'" size="10" />')."</td>";
         echo "</tr>";
       ?>
     </tbody>

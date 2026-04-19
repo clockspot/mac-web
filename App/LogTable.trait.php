@@ -47,27 +47,29 @@ trait LogTableMethods {
   public function logAdd($table, $request) {
     $table = $this->safeTableName($table);
 
-    // Normalize
-    foreach(array_keys($request) as $key=>$val) {
-      if(is_string($val)) $val = trim($val);
-      if($val==='') $val = null;
+    // Normalize: trim strings, convert empty strings to null
+    foreach ($request as $key => $val) {
+      if (is_string($val)) $val = trim($val);
+      if ($val === '') $val = null;
       $request[$key] = $val;
     }
     unset($val);
 
-    $columns = $this->getTableColumns($safe);
-    
-    if(in_array('timestamp', $columns)) $vals['timestamp'] = date('Y-m-d H:i:s');
+    $columns = $this->getTableColumns($table);
+    $vals = [];
 
-    foreach($req as $k => $v) {
-      if(in_array(strtolower($k), $columns) && !in_array(strtolower($k), array_map('strtolower',array_keys($vals)))) {
+    if (in_array('datetime', $columns)) $vals['datetime'] = date('Y-m-d H:i:s');
+
+    foreach ($request as $k => $v) {
+      if (in_array(strtolower($k), $columns) && !isset($vals[$k]))
         $vals[$k] = $v;
-      }
     }
-    if(empty($vals)) return;
+
+    if (empty($vals)) throw new Exception("No valid fields to insert.");
+
     $placeholders = implode(',', array_fill(0, count($vals), '?'));
-    $query = "INSERT INTO `$safe` (`".implode('`,`',$vals)."`) VALUES ($placeholders)";
-    return $this->runQueryWithData($query, $vals, 'insert into '.$table);
+    $query = "INSERT INTO `$table` (`".implode('`,`', array_keys($vals))."`) VALUES ($placeholders)";
+    return $this->runQueryWithData($query, array_values($vals), 'insert into '.$table);
   } // end logAdd
 
 } // end trait LogTableMethods
