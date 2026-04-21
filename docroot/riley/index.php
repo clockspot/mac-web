@@ -12,11 +12,11 @@ $table = 'riley';
 //Value: header in html table
 $fields = [
   "datetime" => "Date/Time",
-  "bglevel" => "BG mmol/L",
-  "insulin" => "Insulin u",
-  "gabapentin" => "Gabapentin mg",
-  "allergy" => "Allergy mg",
-  "inhaler" => "Inhaler sec",
+  "bglevel" => "BG<br><small>mmol/L</small>",
+  "insulin" => "Insulin<br><small>units</small>",
+  "gabapentin" => "Gabapentin<br><small>mg</small>",
+  "allergy" => "Allergy<br><small>mg</small>",
+  "inhaler" => "Inhaler<br><small>sec</small>",
   "note" => "Note"
 ];
 
@@ -73,19 +73,20 @@ include $docroot.'resources/template-header.php';
     From: <input type="text" name="from" value="<?php echo htmlspecialchars($browseFrom); ?>" size="10" />
     &nbsp;To: <input type="text" name="to" value="<?php echo htmlspecialchars($browseTo); ?>" size="10" />
     &nbsp;<input type="submit" value="Browse" />
+    <?php $cnt = is_array($browseRows) ? count($browseRows) : 0; ?>
+    &nbsp;<?php echo $cnt; ?> entr<?php echo $cnt === 1 ? 'y' : 'ies'; ?> found.
   </p>
-  <?php $cnt = is_array($browseRows) ? count($browseRows) : 0; ?>
-  <p><small><?php echo $cnt; ?> entr<?php echo $cnt === 1 ? 'y' : 'ies'; ?> found.</small></p>
+  
 </form>
 
 <form method="post" action="">
   <input type="hidden" name="form_action" value="add">
   <input type="hidden" name="browse_from" value="<?php echo htmlspecialchars($browseFrom); ?>">
   <input type="hidden" name="browse_to"   value="<?php echo htmlspecialchars($browseTo); ?>">
-  <table class="log">
+  <table border=0 cellpadding=0 cellspacing=3 style="width: 100%;">
     <thead>
       <tr>
-        <?php foreach($fields as $k=>$v) echo "<th>".str_replace(" ","&nbsp;",htmlentities($v))."</th>"; ?>
+        <?php foreach($fields as $k=>$v) echo "<th style='font-family: Geneva, sans-serif; font-size: 10pt; text-align: center;' valign='top'>".$v."</th>"; ?>
       </tr>
     </thead>
     <tbody>
@@ -93,12 +94,19 @@ include $docroot.'resources/template-header.php';
         if ($browseRows !== null && is_array($browseRows) && count($browseRows) > 0) {
           foreach ($browseRows as $i => $row) {
             echo "<tr>";
-            foreach($fields as $k=>$v) echo "<td>".($row[$k]!==null? htmlspecialchars($row[$k]): '')."</td>";
+            foreach($fields as $k=>$v) {
+              if($k=='datetime') {
+                $d = new DateTime($row[$k]); $row[$k] = str_replace(" ","&nbsp;",$d->format('D Mj h:i'));
+              } else {
+                $row[$k] = htmlspecialchars(($row[$k]!==null? $row[$k]: ''));
+              }
+              echo "<td style='font-family: Geneva, sans-serif; font-size: 10pt; text-align: ".($k=='note'? 'left': 'right').";' valign='top'>".$row[$k]."</td>";
+            }
             echo "</tr>";
           }
         }
         echo "<tr>";
-        foreach($fields as $k=>$v) echo "<td>".($k=='datetime'? '<input type="submit" value="Add" />': '<input type="text" name="'.htmlspecialchars($k).'" value="'.htmlspecialchars($_POST[$k] ?? '').'" size="10" />')."</td>";
+        foreach($fields as $k=>$v) echo "<td style='font-family: Geneva, sans-serif; font-size: 10pt; text-align: ".($k=='note'? 'left': 'right').";' valign='top'>".($k=='datetime'? '<input type="submit" value="Add" />': '<input type="text" name="'.htmlspecialchars($k).'" value="'.htmlspecialchars($_POST[$k] ?? '').'" size="7" align="'.($k=='note'? 'left': 'right').'" />')."</td>";
         echo "</tr>";
       ?>
     </tbody>

@@ -8,7 +8,7 @@ require $projroot.'settings.php';
 include $docroot.'resources/template-header.php';
 ?>
 
-<h2>Welcome</h2>
+<h1>Welcome to <?php echo htmlentities(SITE_TITLE); ?></h1>
 <ul>
   <li><a href="riley/">Riley</a> &mdash; Medication and allergy log</li>
 </ul>
