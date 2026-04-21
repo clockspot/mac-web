@@ -1,2 +1,5 @@
 settings.php
 .DS_Store
+.htaccess
+.htpasswd
+.version
